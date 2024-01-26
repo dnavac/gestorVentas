@@ -26,7 +26,7 @@ class CategoriaController extends Controller
             ->where('estatus','=','1')
             ->orderBy('id_categoria','desc')
             ->paginate(7);
-            return view('almacen.categoria.index',["categoria"=>$categorias,"searchtext"=>$query]);
+            return view('almacen.categoria.index',["categoria"=>$categoria,"searchtext"=>$query]);
         }
     }
 
