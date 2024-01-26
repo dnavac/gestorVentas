@@ -21,12 +21,12 @@ class CategoriaController extends Controller
     {
         if($request)
         {
-            $query=trim($request->get('searchtext'));
+            $query=trim($request->get('texto'));
             $categoria=DB::table('categoria')->where('categoria', 'LIKE', '%' .$query. '%')
             ->where('estatus','=','1')
             ->orderBy('id_categoria','desc')
             ->paginate(7);
-            return view('almacen.categoria.index',["categoria"=>$categoria,"searchtext"=>$query]);
+            return view('almacen.categoria.index',["categoria"=>$categoria,"texto"=>$query]);
         }
     }
 
