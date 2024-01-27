@@ -62,7 +62,7 @@ class CategoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         return view("almacen.categoria.edit", ["categoria"=>Categoria::findOrFail($id)]);
     }
@@ -73,7 +73,7 @@ class CategoriaController extends Controller
     public function update(Request $request, string $id)
     {
         $categoria=Categoria::findOrFail($id);
-        $categoria->Categoria=$request->get('categoria');
+        $categoria->categoria=$request->get('categoria');
         $categoria->descripcion=$request->get('descripcion');
         $categoria->update();
         return Redirect::to('almacen/categoria');
