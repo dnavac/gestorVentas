@@ -43,12 +43,12 @@ class CategoriaController extends Controller
      */
     public function store(CategoriaFormRequest $request)
     {
-        $categoria= new Categoria;
+        $categoria=new Categoria;
         $categoria->categoria=$request->get('categoria');
         $categoria->descripcion=$request->get('descripcion');
         $categoria->estatus='1';
         $categoria->save();
-        return REDIRECT::to('almacen/categoria');
+        return Redirect::to('almacen/categoria');
     }
 
     /**
