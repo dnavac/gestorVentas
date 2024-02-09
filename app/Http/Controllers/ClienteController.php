@@ -18,9 +18,9 @@ class ClienteController extends Controller
     {
         $query=trim($request->get('texto'));
         $clientes=DB::table('persona')->where('nombre','LIKE', '%'. $query.'%')
-        ->where('tipo_persona', '=','cliente')
+        ->where('tipo_persona', '=','Cliente')
         ->orderBy('id_persona','desc')
-        ->paginate(10);
+        ->paginate(7);
         return view('ventas.clientes.index',["clientes"=>$clientes,"texto"=>$query]);
     }
 
@@ -38,15 +38,16 @@ class ClienteController extends Controller
     public function store(ClientFormRequest $request)
     {
         $cliente=new Cliente;
-        $cliente->tipo_persona=$request->get('tipo_persona');
-        $cliente->nombre=$request->get('nombre');
-        $cliente->tipo_documento->get('tipo_documento');
-        $cliente->num_documento->get('num_documento');
-        $cliente->direccion->get('direccion');
-        $cliente->telefono->get('telefono');
-        $cliente->email->get('email');
+        $cliente->tipo_persona='Cliente';
+        $cliente->nombre=$request->input('nombre');
+        $cliente->tipo_documento=$request->input('tipo_documento');
+        $cliente->num_documento=$request->input('num_documento');
+        $cliente->direccion=$request->input('direccion');
+        $cliente->telefono=$request->input('telefono');
+        $cliente->email=$request->input('email');
+        $cliente->estatus='1';
         $cliente->save();
-        return Redirect::to('ventas/clientes');
+        return redirect()->route('clientes.index');
     }
 
     /**

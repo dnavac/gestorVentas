@@ -63,26 +63,25 @@
                                     <th>Direccion</th>
                                     <th>Telefono</th>
                                     <th>Email</th>
-                                    <th>Estatus</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clientes as $cli)
-                                <tr>
-                                    <td>
-                                        <a href="" class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></a>
-                                        <!-- Button trigger for danger theme modal -->
-                                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target=""><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                    <td>{{ $cli->nombre}}</td>
-                                    <td>{{ $cli->tipo_documento}}</td>
-                                    <td>{{ $cli->num_documento}}</td>
-                                    <td>{{ $cli->direccion}}</td>
-                                    <td>{{ $cli->telefono}}</td>
-                                    <td>{{ $cli->email}}</td>
+                            @foreach ($clientes as $cli)
+                            <tr>
+                                <td>
+                                    <a href="" class="btn btn-warning btn-sm"><i class="fas fa-pen"></i></a>
+                                    <!-- Button trigger for danger theme modal -->
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                                <td>{{ $cli->nombre}}</td>
+                                <td>{{ $cli->tipo_documento}}</td>
+                                <td>{{ $cli->num_documento}}</td>
+                                <td>{{ $cli->direccion}}</td>
+                                <td>{{ $cli->telefono}}</td>
+                                <td>{{ $cli->email}}</td>
+                            </tr>
+                            @endforeach
 
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                         {{ $clientes->links() }}
