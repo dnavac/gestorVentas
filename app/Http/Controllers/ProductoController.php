@@ -92,18 +92,18 @@ class ProductoController extends Controller
      */
     public function update(ProductoFormRequest $request,$id)
     {
-        $producto=Producto::findOfFail($id);
-        $producto->id_categoria=$request->input('id_categoria');
-        $producto->codigo=$request->input('codigo');
-        $producto->nombre=$request->input('nombre');
-        $producto->stock=$request->input('stock');
-        $producto->descripcion=$request->input('descripcion');
+        $producto = Producto::findOrFail($id);
+        $producto->id_categoria = $request->input('id_categoria');
+        $producto->codigo = $request->input('codigo');
+        $producto->nombre = $request->input('nombre');
+        $producto->stock = $request->input('stock');
+        $producto->descripcion = $request->input('descripcion');
 
         if($request->hasFile("imagen"))
         {
-            $imagen= $request->file("imagen");
-            $nombreimagen=Str::slug($request->nombre).".".$imagen->guessExtension();
-            $ruta=public_path("imagenes/productos/");
+            $imagen = $request->file("imagen");
+            $nombreimagen = Str::slug($request->nombre).".".$imagen->guessExtension();
+            $ruta = public_path("imagenes/productos/");
             copy($imagen->getRealPath(),$ruta.$nombreimagen);
 
             $producto->imagen = $nombreimagen;
@@ -111,6 +111,7 @@ class ProductoController extends Controller
         $producto->update();
         return redirect()->route('producto.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
