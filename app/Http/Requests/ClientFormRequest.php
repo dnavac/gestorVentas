@@ -22,10 +22,10 @@ class ClientFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'tipo_persona'=> 'required|max:50',
+            // 'id_persona'=> 'required',
             'nombre'=>'required|max:100',
             'tipo_documento'=>'max:50',
-            'numero_documento'=>'max:50',
+            'num_documento'=>'max:50',
             'direccion'=>'max:250',
             'telefono'=>'max:12',
             'email'=>'max:50', 

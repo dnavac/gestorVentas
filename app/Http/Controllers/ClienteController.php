@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ClientFormRequest;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect as FacadesRedirect;
 
@@ -19,6 +20,7 @@ class ClienteController extends Controller
         $query=trim($request->get('texto'));
         $clientes=DB::table('persona')->where('nombre','LIKE', '%'. $query.'%')
         ->where('tipo_persona', '=','Cliente')
+        ->where('estatus', '=','1')
         ->orderBy('id_persona','desc')
         ->paginate(7);
         return view('ventas.clientes.index',["clientes"=>$clientes,"texto"=>$query]);
@@ -63,22 +65,22 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        return view("ventas.clientes.edit",["clientes"=>Cliente::findOrFail($id)]);
+        $cliente=Cliente::findOrFail($id);
+        return view("ventas.clientes.edit",["cliente"=>$cliente]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ClientFormRequest $request, string $id)
+    public function update(ClientFormRequest $request,$id)
     {
         $cliente=Cliente::findOrFail($id);
-        $cliente->tipo_persona=$request->get('tipo_persona');
-        $cliente->nombre=$request->get('nombre');
-        $cliente->tipo_documento->get('tipo_documento');
-        $cliente->num_documento->get('num_documento');
-        $cliente->direccion->get('direccion'); 
-        $cliente->telefono->get('telefono');
-        $cliente->email->get('email');
+        $cliente->nombre=$request->input('nombre');
+        $cliente->tipo_documento=$request->input('tipo_documento');
+        $cliente->num_documento=$request->input('num_documento');
+        $cliente->direccion=$request->input('direccion'); 
+        $cliente->telefono=$request->input('telefono');
+        $cliente->email=$request->input('email');
         $cliente->update();
         return Redirect::to('ventas/clientes');
     }
@@ -91,7 +93,7 @@ class ClienteController extends Controller
         $cliente=Cliente::findOrFail($id);
         $cliente->estatus='0';
         $cliente->update();
-        return redirect()->route('client.index')
+        return redirect()->route('clientes.index')
         ->with('success','Cliente eliminado correctamente'); 
     }
 }
